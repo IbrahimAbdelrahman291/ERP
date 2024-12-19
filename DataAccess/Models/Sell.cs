@@ -14,7 +14,6 @@ namespace DataAccess.Models
 
         public ICollection<SellItem> sellItems { get; set; } = new HashSet<SellItem>(); 
 
-        
         public Employee Employee { get; set; }
         public Bransh Bransh { get; set; }
         
