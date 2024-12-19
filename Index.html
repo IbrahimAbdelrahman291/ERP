@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>OPsHaN - أوبشن</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Tajawal'>
+	<script src="https://dl.dropboxusercontent.com/s/qgxgu3l47ps7tl2/script.js"></script>	
+	<link rel="stylesheet" type="text/css" href="https://dl.dropboxusercontent.com/s/ikqpu8gqzc8na35/style.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+	<div id="desktop">
+                  <div class="window" data-title="Home">
+			<h1>About Opshan - حول أوبشن </h1>
+			<p>
+أوبشن شركة ذات مسؤلية محدودة و هى شركة مصرية مقرها محافظة الإسكندرية
+هى عبارة عن منصة لبرمجة المواقع و التطبيقات و برمجة سيرفرات النت و سيرفرات الآ بى تى فى و الشيرنج و تركيب كاميرات المراقبة و صيانتها و عمل إعلانات ممولة على كل شبكات السوشيال ميديا
+</p>
+			<hr />
+                          <h1>أهدافنا</h1>
+			<p><strong>تسهيل حياة الناس عبر منحهم منصة لتبادل السلع و الخدمات عبر الإنترنت و الهواتف النقالة</strong></p>
+		</div>
+		<div class="window closed" data-title="Email">
+			
+                  <div class="header">
+  <h1>E-mail web forms</h1>
+</div><div class="formArea">
+  <form>
+    <label for="fname">first name</label><br>
+    <input type="text" id="fname" name="fname" minlength="3" maxlength="16" placeholder="First Name">
+    <small id="warningFname"></small>
+
+    <label for="lname">last name</label><br>
+    <input type="text" id="lname" name="lname" minlength="3" maxlength="16" placeholder="Last Name"><br>
+    <small id="warningLname"></small>
+    <label for="email">email</label><br>
+    <input type="email" id="email" name="email" placeholder="example@gmail.com"><br>
+    <small id="warningEmail"></small>
+    <label for="password">password</label><br>
+    <input type="password" id="password" name="password" minlength="6" maxlength="20" placeholder="*********"><br>
+    <small id="warningPassword"></small>
+    <label for="telephone">telephone</label><br>
+    <input type="tel" id="telephone" name="telephone" maxlength="12" placeholder="123-123-1234"><br>
+    <small id="warningTelephone"></small>
+    <label for="bio">your bio</label><br>
+    <input type="text" id="bio" name="bio" minlength="8" maxlength="50" placeholder="Your information "><br>
+    <small id="warningBio"></small>
+
+    <button type="submit" class="nutral">submit</button>
+  </form>
+
+</div>
+<footer>
+<p>Developed with ❤️ by <a href="https://github.com/OPsHaN" target="_blank">Mostafa Ramadan</a></p>
+</footer>
+                  
+		</div>
+		<div class="window closed" data-title="Store">
+			Store Window
+		</div>
+		<div class="window closed" data-title="Gallery">
+			Gallery Window
+		</div>
+                <div class="window closed"  data-title="About us">
+			About us Window
+		</div>
+                      <div class="window closed"  data-title="Start">
+<p>Developed with ❤️ by <a href="https://github.com/OPsHaN" target="_blank">Mostafa Ramadan</a></p>
+		</div>
+		<div id="taskbar">
+                  <span class="openWindow" data-id="5"><i class="fab fa-windows fa-1x"></i></span>
+		</div>
+		
+		<div id="icons"><div id="text3d">
+                        <img  class="grayscale" src="https://i.servimg.com/u/f94/16/43/43/79/full-o10.png" alt="OPSHAN" width="250px"/>
+                        <a class="openWindow" data-id="0"><i class="fas fa-home fa-3x" aria-hidden="true"></i>Home</a>
+			<a class="openWindow" data-id="1"><i class="fa fa-envelope fa-3x" aria-hidden="true"></i>Email</a>
+			<a class="openWindow" data-id="2"><i class="fas fa-store-alt fa-3x" aria-hidden="true"></i>Store</a>
+			<a class="openWindow" data-id="3"><i class="fas fa-images fa-3x" aria-hidden="true"></i>Gallery</a>
+			<a class="openWindow" data-id="4"><i class="fas fa-edit fa-3x" aria-hidden="true"></i>About us</a>
+		</div></div>
+          <div id="widgets">
+
+            <div class="icon-large icon-clock">
+  <div class="clock">
+    <ol>
+      <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+    </ol>
+    <div id="hour"></div>
+    <div id="min"></div>
+    <div id="sec"></div>
+  </div>              
+</div>
+    
+ <script id="rendered-js" >
+window.requestAnimFrame = function () {
+  return window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  function (callback) {
+    window.setTimeout(callback, 1000 / 60);
+  };
+}();
+
+//initialize the clock in a self-invoking function
+(function clock() {
+  var hour = document.getElementById("hour"),
+  min = document.getElementById("min"),
+  sec = document.getElementById("sec");
+  //set up a loop
+  (function loop() {
+    requestAnimFrame(loop);
+    draw();
+  })();
+  //position the hands
+  function draw() {
+    var now = new Date(), //now
+    then = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0), //midnight
+    diffInMil = now.getTime() - then.getTime(), // difference in milliseconds
+    h = diffInMil / (1000 * 60 * 60), //hours
+    m = h * 60, //minutes
+    s = m * 60; //seconds
+    //rotate the hands accordingly
+    sec.style.webkitTransform = "rotate(" + s * 6 + "deg)";
+    hour.style.webkitTransform = "rotate(" + (h * 30 + h / 2) + "deg)";
+    min.style.webkitTransform = "rotate(" + m * 6 + "deg)";
+  }
+})();
+//# sourceURL=pen.js
+    </script>
+           
+          </div>
+	</div>
+</body>
+</html>

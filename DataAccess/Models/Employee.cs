@@ -11,8 +11,8 @@ namespace DataAccess.Models
     public class Employee : BaseEntity
     {
         public string UserName { get; set; }
-        public string Name { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
         public int AdminId { get; set; }
