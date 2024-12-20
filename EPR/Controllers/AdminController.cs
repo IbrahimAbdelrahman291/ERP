@@ -13,13 +13,17 @@ namespace EPR.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<Inventory> _invrepository;
         private readonly IGenericRepository<Employee> _emprepository;
+        private readonly IGenericRepository<Bransh> _branchRepository;
+        private readonly IGenericRepository<Stock> _stockRepo;
 
-        public AdminController(IMapper mapper,IUnitOfWork unitOfWork, IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository)
+        public AdminController(IMapper mapper,IUnitOfWork unitOfWork, IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository,IGenericRepository<Bransh> branchRepository,IGenericRepository<Stock> stockRepo)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _invrepository = Invrepository;
             _emprepository = Emprepository;
+            _branchRepository = branchRepository;
+            _stockRepo = stockRepo;
         }
         public IActionResult Index()
         {
@@ -105,8 +109,72 @@ namespace EPR.Controllers
 
         #endregion
 
+        #region Branch
+
+        [HttpGet]
+        public IActionResult CreateBranch() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBranch(string BranchName) 
+        {
+            if(!ModelState.IsValid) return View(BranchName);
+
+            var MappedBranch = new Bransh
+            {
+                Name = BranchName,
+            };
+
+            await _branchRepository.AddAsync(MappedBranch);
+            var Result = await _branchRepository.CompleteAsync();
+            if(Result > 0) RedirectToAction("Index");
+            return View(BranchName);
+        }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllBranches() 
+        {
+            var Branches = await _branchRepository.GetAllWithSpecAsync(new BranchSpec());
+            var MappedBranches = _mapper.Map<IEnumerable<Bransh>, IEnumerable<BranchViewModel>>(Branches);
+            return View(MappedBranches);
+        }
+        #endregion
+
+        #region Stock
+
+        [HttpGet]
+        public async Task<IActionResult> GetStockOfSpecificBranch(int id)
+        {
+            var Stock = await _stockRepo.GetAllWithSpecAsync(new StockSpec(id));
+            var MappedStock = _mapper.Map<IEnumerable<Stock>, IEnumerable<StockViewModel>>(Stock);
+            return View(MappedStock);
+        }
+
+        #endregion
+
+        #region Transactions
+
+        //[HttpGet]
+        //public Task<IActionResult> GetAllTransaction() 
+        //{
+
+        //}
+
+        [HttpGet]
+        public IActionResult CreateTransaction() 
+        {
+            return View();
+        }
+        //[HttpPost]
+        //public Task<IActionResult> CreateTransaction()
+        //{
+
+        //}
+
+        #endregion
 
     }
 }
