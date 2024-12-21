@@ -19,7 +19,17 @@ namespace EPR.Helper
             CreateMap<Stock, StockViewModel>().ForMember(s=> s.ProductName , option => option.MapFrom(d => d.Product.Name));
 
             CreateMap<Transaction, TransactionViewModel>()
-                .ForMember(s => s.BranchName, option => option.MapFrom(d => d.Bransh.Name));
+                .ForMember(s => s.BranchName, option => option.MapFrom(d => d.Bransh.Name))
+                .ForMember(s => s.bodyOfTransaction, option => option.MapFrom(d => d.TransactionItems)).ReverseMap();
+            CreateMap<TransactionItems, TransactionItmesViewModel>().
+                ForMember(s => s.ProductName, option => option.MapFrom(d => d.Product.Name)).ReverseMap();
+
+
+            CreateMap<Sell, SellViewModel>()
+                            .ForMember(s => s.sellItems, option => option.MapFrom(d => d.sellItems)).ReverseMap();
+            CreateMap<SellItem, SellitemViewModel>().
+                ForMember(s => s.ProductName, option => option.MapFrom(d => d.Product.Name))
+                .ForMember(s=>s.Billing, option=>option.MapFrom(d=>(d.Product.Price * (decimal)d.Amount))).ReverseMap();
 
         }
     }

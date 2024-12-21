@@ -11,11 +11,8 @@ namespace DataAccess.Models
         public DateTime DateTime { get; set; }
         public int BranshId { get; set; }
         public int AdminId { get; set; }
-        public int InventoryId { get; set; }
         public ICollection<TransactionItems> TransactionItems { get; set; } = new HashSet<TransactionItems>();
-
         public Bransh Bransh { get; set; }
-        public Inventory Inventory { get; set; }
         public Admin Admin { get; set; }
     }
 }

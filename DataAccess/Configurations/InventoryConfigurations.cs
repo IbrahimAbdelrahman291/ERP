@@ -13,9 +13,6 @@ namespace DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
-            builder.HasOne(i => i.Product)
-                   .WithOne(p => p.Inventory)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

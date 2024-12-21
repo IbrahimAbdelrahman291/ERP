@@ -6,6 +6,5 @@ namespace EPR.ViewModel
     {
         public string Name { get; set; }
 
-        public string AdminUserName { get; set; }
     }
 }

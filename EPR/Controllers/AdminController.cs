@@ -11,22 +11,23 @@ namespace EPR.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenericRepository<Transaction> _transrepository;
         private readonly IGenericRepository<Inventory> _invrepository;
         private readonly IGenericRepository<Employee> _emprepository;
-        private readonly IGenericRepository<Bransh> _branchRepository;
         private readonly IGenericRepository<Stock> _stockRepo;
 
-        public AdminController(IMapper mapper,IUnitOfWork unitOfWork, IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository,IGenericRepository<Bransh> branchRepository,IGenericRepository<Stock> stockRepo)
+        public AdminController(IMapper mapper,IUnitOfWork unitOfWork,IGenericRepository<Transaction> Transrepositoy,IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository,IGenericRepository<Stock> stockRepo)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _transrepository = Transrepositoy;
             _invrepository = Invrepository;
             _emprepository = Emprepository;
-            _branchRepository = branchRepository;
             _stockRepo = stockRepo;
         }
         public IActionResult Index()
         {
+            /// ICONSSS FOR ADMIN
             return View();
         }
 
@@ -42,11 +43,16 @@ namespace EPR.Controllers
         {
             if (!ModelState.IsValid) return View(model);
             var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(model);
+            var AdminId = HttpContext.Session.GetInt32("AdminId");
+            var branch = _unitOfWork.BranchRepository.GetBranshByName(model.BranchName);
+            MappedEmployee.AdminId = AdminId.Value;
+            if (branch is null) return View(model);
+            MappedEmployee.BranshId = branch.Id;
             await _emprepository.AddAsync(MappedEmployee);
             int Result = await _emprepository.CompleteAsync();
             if (Result > 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("GetAllEmployees");
             }
             return View(model);
         }
@@ -64,7 +70,7 @@ namespace EPR.Controllers
         #region Inventory
 
         public async Task<IActionResult> GetAllProducts() 
-        {
+        {  // ICON OF iNVENTORY
             var ProductsInInventory =await _invrepository.GetAllWithSpecAsync(new InventorySpec());
             var mappedInventory = _mapper.Map<IEnumerable<Inventory>,IEnumerable<InventoryViewModel>>(ProductsInInventory);
             return View(mappedInventory);
@@ -89,7 +95,7 @@ namespace EPR.Controllers
                 if (Result > 0) RedirectToAction("GetAllProducts");
             }
             var mappedProduct = _mapper.Map<ProductViewModel, Product>(model);
-            //mappedProduct.AdminId  
+            mappedProduct.AdminId = HttpContext.Session.GetInt32("AdminId").Value;
             await _unitOfWork.ProductRepository.AddAsync(mappedProduct);
             int result = await _unitOfWork.ProductRepository.CompleteAsync();
             if (result > 0)
@@ -118,26 +124,28 @@ namespace EPR.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBranch(string BranchName) 
+        public async Task<IActionResult> CreateBranch(BranchViewModel model) 
         {
-            if(!ModelState.IsValid) return View(BranchName);
-
+            if(!ModelState.IsValid) return View(model);
+            
+             
             var MappedBranch = new Bransh
             {
-                Name = BranchName,
+                Name = model.Name,
+                AdminId = HttpContext.Session.GetInt32("AdminId").Value
             };
 
-            await _branchRepository.AddAsync(MappedBranch);
-            var Result = await _branchRepository.CompleteAsync();
-            if(Result > 0) RedirectToAction("Index");
-            return View(BranchName);
+            await _unitOfWork.BranchRepository.AddAsync(MappedBranch);
+            var Result = await _unitOfWork.BranchRepository.CompleteAsync();
+            if(Result > 0) RedirectToAction("GetAllBranches");
+            return View(model);
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetAllBranches() 
         {
-            var Branches = await _branchRepository.GetAllWithSpecAsync(new BranchSpec());
+            var Branches = await _unitOfWork.BranchRepository.GetAllWithSpecAsync(new BranchSpec());
             var MappedBranches = _mapper.Map<IEnumerable<Bransh>, IEnumerable<BranchViewModel>>(Branches);
             return View(MappedBranches);
         }
@@ -145,6 +153,7 @@ namespace EPR.Controllers
 
         #region Stock
 
+        // function to view possible branshes ..
         [HttpGet]
         public async Task<IActionResult> GetStockOfSpecificBranch(int id)
         {
@@ -157,22 +166,33 @@ namespace EPR.Controllers
 
         #region Transactions
 
-        //[HttpGet]
-        //public Task<IActionResult> GetAllTransaction() 
-        //{
-
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetAllTransaction()
+        {
+            var Transcations =await _transrepository.GetAllWithSpecAsync(new TransSpec());
+            var MappedTrans = _mapper.Map<IEnumerable<Transaction>,IEnumerable<TransactionViewModel>>(Transcations);
+            return View(MappedTrans);
+        }
 
         [HttpGet]
         public IActionResult CreateTransaction() 
         {
             return View();
         }
-        //[HttpPost]
-        //public Task<IActionResult> CreateTransaction()
-        //{
-
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateTransaction(TransactionViewModel model)
+        {
+            if(!ModelState.IsValid) return View(model);
+            var MappedTransaction = _mapper.Map<TransactionViewModel,Transaction>(model);
+            var Bransh = await _unitOfWork.BranchRepository.GetBranshByName(model.BranchName);
+            MappedTransaction.BranshId = Bransh.Id;
+            MappedTransaction.AdminId = HttpContext.Session.GetInt32("AdminId").Value;
+            await _transrepository.AddAsync(MappedTransaction);
+            int Result = await _transrepository.CompleteAsync();
+            if (Result > 0) return RedirectToAction("GetAllTransaction");
+            
+            return View(model);
+        }
 
         #endregion
 

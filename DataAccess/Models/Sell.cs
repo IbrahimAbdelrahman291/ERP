@@ -11,9 +11,8 @@ namespace DataAccess.Models
         public DateTime DateTime { get; set; }
         public int EmployeeId { get; set; }
         public int BranshId { get; set; }
-
-        public ICollection<SellItem> sellItems { get; set; } = new HashSet<SellItem>(); 
-
+        public ICollection<SellItem> sellItems { get; set; } = new HashSet<SellItem>();
+        public decimal Bill { get; set; }
         public Employee Employee { get; set; }
         public Bransh Bransh { get; set; }
         

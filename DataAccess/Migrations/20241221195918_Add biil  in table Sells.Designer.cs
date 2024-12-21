@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ERPDbContext))]
-    [Migration("20241213092616_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241221195918_Add biil  in table Sells")]
+    partial class AddbiilintableSells
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,8 +128,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Inventory");
                 });
@@ -148,18 +147,12 @@ namespace DataAccess.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("InventoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -175,6 +168,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Bill")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BranshId")
                         .HasColumnType("int");
@@ -244,8 +240,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("BranshId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Stock");
                 });
@@ -267,7 +262,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InventoryId")
+                    b.Property<int?>("InventoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -340,9 +335,9 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Inventory", b =>
                 {
                     b.HasOne("DataAccess.Models.Product", "Product")
-                        .WithOne("Inventory")
-                        .HasForeignKey("DataAccess.Models.Inventory", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -406,8 +401,8 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.Product", "Product")
-                        .WithOne("Stock")
-                        .HasForeignKey("DataAccess.Models.Stock", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -430,17 +425,13 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.Inventory", "Inventory")
+                    b.HasOne("DataAccess.Models.Inventory", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("InventoryId");
 
                     b.Navigation("Admin");
 
                     b.Navigation("Bransh");
-
-                    b.Navigation("Inventory");
                 });
 
             modelBuilder.Entity("DataAccess.Models.TransactionItems", b =>
@@ -488,15 +479,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Inventory", b =>
                 {
                     b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.Product", b =>
-                {
-                    b.Navigation("Inventory")
-                        .IsRequired();
-
-                    b.Navigation("Stock")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DataAccess.Models.Sell", b =>

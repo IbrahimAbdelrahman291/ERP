@@ -16,8 +16,6 @@ namespace DataAccess.Configurations
             builder.Property(P => P.Name).IsRequired();
             builder.Property(P => P.Amount).IsRequired();
             builder.Property(P => P.Price).IsRequired().HasColumnType("decimal(18,2)");
-            builder.HasOne(P => P.Inventory).WithOne(P => P.Product).HasForeignKey<Inventory>(I => I.ProductId);
-            builder.HasOne(P => P.Stock).WithOne(P => P.Product).HasForeignKey<Stock>(I => I.ProductId);
-        }
+           }
     }
 }

@@ -14,5 +14,6 @@ namespace DataAccess.Models
         public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
         public ICollection<Bransh> Branshes { get; set; } = new HashSet<Bransh>();
         public ICollection<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
+
     }
 }

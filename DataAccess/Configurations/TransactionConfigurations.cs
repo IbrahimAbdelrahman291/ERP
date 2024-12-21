@@ -14,10 +14,6 @@ namespace DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.HasOne(t => t.Inventory)
-                   .WithMany(i => i.Transactions)
-                   .HasForeignKey(t => t.InventoryId)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

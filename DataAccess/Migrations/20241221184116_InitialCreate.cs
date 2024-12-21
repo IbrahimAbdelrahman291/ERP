@@ -52,9 +52,7 @@ namespace DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: false),
-                    InventoryId = table.Column<int>(type: "int", nullable: false),
-                    StockId = table.Column<int>(type: "int", nullable: false)
+                    AdminId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,8 +72,8 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: false),
                     BranshId = table.Column<int>(type: "int", nullable: false)
@@ -114,7 +112,7 @@ namespace DataAccess.Migrations
                         column: x => x.ProductId,
                         principalTable: "products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,7 +178,6 @@ namespace DataAccess.Migrations
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BranshId = table.Column<int>(type: "int", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: false),
-                    InventoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -197,12 +194,6 @@ namespace DataAccess.Migrations
                         principalTable: "branshes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_transactions_Inventory_InventoryId",
-                        column: x => x.InventoryId,
-                        principalTable: "Inventory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -278,8 +269,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_ProductId",
                 table: "Inventory",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_products_AdminId",
@@ -314,8 +304,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_ProductId",
                 table: "Stock",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TransactionItems_ProductId",
@@ -337,10 +326,7 @@ namespace DataAccess.Migrations
                 table: "transactions",
                 column: "BranshId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_transactions_InventoryId",
-                table: "transactions",
-                column: "InventoryId");
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

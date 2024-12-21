@@ -20,7 +20,10 @@ namespace Business.Repositoris
                 Query = Query.Where(Spec.criteria);
             }
             //OrderBy
-
+            if (Spec.OrderByDescending is not null) 
+            {
+                 Query= Query.OrderByDescending(Spec.OrderByDescending);
+            }
             //pagination
             if (Spec.IsPaginationEnabled)
             {

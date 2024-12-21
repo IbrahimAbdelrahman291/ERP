@@ -16,8 +16,15 @@ namespace Business.Repositoris
         {
            _dbContext = dbContext;
             ProductRepository= new ProductRepository(dbContext);
+            BranchRepository= new BranchRepository(dbContext);
+            AdminRepository= new AdminRepository(dbContext);
+            EmployeeRepository= new EmployeeRepository(dbContext);
         }
         public IProductRepository ProductRepository { get; set ; }
+        public IBranchRepository BranchRepository { get; set ; }
+        public IAdminRepository AdminRepository { get; set ; }
+        public IEmployeeRepository EmployeeRepository { get; set ; }
+
         public async Task<int> CompleteAsync()
         {
             return await _dbContext.SaveChangesAsync();
