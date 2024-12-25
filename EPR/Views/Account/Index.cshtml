@@ -1,0 +1,18 @@
+﻿@{
+	ViewData["Title"] = "ChooseRole";
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <link href="~/css/Role.css" rel="stylesheet"/>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="button-container">
+        <a asp-action="LoginEmployee"><input type="button" class="button" value="موظف"></a>
+
+        <a asp-action="LoginAdmin"><input type="button" class="button" value="ادمن"></a>
+    </div>
+</body>
+</html>

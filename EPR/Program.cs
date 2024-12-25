@@ -17,6 +17,7 @@ namespace EPR
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddScoped<IAuthRepository , AuthRepository>();
             builder.Services.AddDbContext<ERPDbContext>(Options =>
             { Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
             var app = builder.Build();
@@ -38,7 +39,7 @@ namespace EPR
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Index}/{id?}");
 
             app.Run();
         }

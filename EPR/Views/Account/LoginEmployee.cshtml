@@ -1,0 +1,27 @@
+﻿@using EPR.ViewModel
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/LoginAdmin.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
+
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form asp-action="LoginEmployee" method="post">
+            <input type="text" class="input-field" placeholder="اسم المستخدم" required><br>
+            <input type="password" class="input-field" placeholder="كلمة المرور" required><br>
+            <button type="submit" class="login-btn">تسجيل الدخول</button>
+        </form>
+    </div>
+
+</body>
+</html>
