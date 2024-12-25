@@ -1,0 +1,257 @@
+[
+    {
+        "Name": "كيري بسطرمة",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "ميكس شيدر",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "ماك أند شيدر",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "لانشون تركي",
+        "Price": 14,
+        "AdminId": 1
+    },
+    {
+        "Name": "لانشون فراخ تركي",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة تركي",
+        "Price": 18,
+        "AdminId": 1
+    },
+    {
+        "Name": "سوسيس",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "كيري بسطرمة سوسيس",
+        "Price": 19,
+        "AdminId": 1
+    },
+    {
+        "Name": "لانشون تركي و شيدر",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "فاهيتا مشكل جبنة",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "بطاطس بيتي شيبسي",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "بطاطس بيتي صوص شيدر",
+        "Price": 19,
+        "AdminId": 1
+    },
+    {
+        "Name": "بطاطس بيتي بان صوص شيدر",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "تشيز سماس (Single)",
+        "Price": 90,
+        "AdminId": 1
+    },
+    {
+        "Name": "تشيز سماس (Double)",
+        "Price": 120,
+        "AdminId": 1
+    },
+    {
+        "Name": "تشيز سماس (Triple)",
+        "Price": 150,
+        "AdminId": 1
+    },
+    {
+        "Name": "برجر و سماس (Single)",
+        "Price": 140,
+        "AdminId": 1
+    },
+    {
+        "Name": "برجر و سماس (Double)",
+        "Price": 170,
+        "AdminId": 1
+    },
+    {
+        "Name": "برجر و سماس (Triple)",
+        "Price": 210,
+        "AdminId": 1
+    },
+    {
+        "Name": "باكت بطاطس كيز",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "باكت بطاطس كيز جبنة",
+        "Price": 35,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة أوريو شوكولاتة",
+        "Price": 22,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة أوريو وايت",
+        "Price": 20,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة مالتيزر شوكولاتة",
+        "Price": 22,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة مالتيزر وايت",
+        "Price": 20,
+        "AdminId": 1
+    },
+    {
+        "Name": "لونش أوريو شوكولاتة",
+        "Price": 28,
+        "AdminId": 1
+    },
+    {
+        "Name": "لونش أوريو وايت",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "موريو أوريو شوكولاتة",
+        "Price": 28,
+        "AdminId": 1
+    },
+    {
+        "Name": "موريو أوريو وايت",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "كيندر شوكولاتة",
+        "Price": 28,
+        "AdminId": 1
+    },
+    {
+        "Name": "كيندر وايت",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "كيندر مكس شوكولاتة",
+        "Price": 33,
+        "AdminId": 1
+    },
+    {
+        "Name": "كيندر مكس وايت",
+        "Price": 30,
+        "AdminId": 1
+    },
+    {
+        "Name": "بستاشيو أوريو",
+        "Price": 33,
+        "AdminId": 1
+    },
+    {
+        "Name": "اكستريم هيت",
+        "Price": 30,
+        "AdminId": 1
+    },
+    {
+        "Name": "دارك وايت",
+        "Price": 25,
+        "AdminId": 1
+    },
+    {
+        "Name": "السابقو",
+        "Price": 38,
+        "AdminId": 1
+    },
+    {
+        "Name": "Randoms Plus",
+        "Price": 33,
+        "AdminId": 1
+    },
+    {
+        "Name": "ميكس الحلو",
+        "Price": 36,
+        "AdminId": 1
+    },
+    {
+        "Name": "الفولت",
+        "Price": 20,
+        "AdminId": 1
+    },
+    {
+        "Name": "إضافة سوداني",
+        "Price": 5,
+        "AdminId": 1
+    },
+    {
+        "Name": "إضافة شوكولاتة (دارك أو وايت)",
+        "Price": 5,
+        "AdminId": 1
+    },
+    {
+        "Name": "إضافة صوص لوتس",
+        "Price": 5,
+        "AdminId": 1
+    },
+    {
+        "Name": "إضافة صوص كيندر",
+        "Price": 5,
+        "AdminId": 1
+    },
+    {
+        "Name": "إضافة صوص بستاشيو",
+        "Price": 5,
+        "AdminId": 1
+    },
+    {
+        "Name": "Randoms مشروب",
+        "Price": 30,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة عسل",
+        "Price": 13,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة حلاوة",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة أوريو",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة شوكولاتة",
+        "Price": 15,
+        "AdminId": 1
+    },
+    {
+        "Name": "كريمة عسل سوداني",
+        "Price": 20,
+        "AdminId": 1
+    }
+]
