@@ -13,5 +13,9 @@ namespace Business.Specification
         {
             Includes.Add(s=>s.sellItems);
         }
+        public SellSpec()
+        {
+            
+        }
     }
 }

@@ -92,10 +92,13 @@
                 <p>قائمة المطعم</p>
             </div>
             </a>
-            <div class="icon" onclick="alert('Sales section coming soon!')">
-                <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Sales">
-                <p>المبيعات</p>
-            </div>
+            <a asp-action="GetAllSells">
+                <div class="icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Sales">
+                    <p>المبيعات</p>
+                </div>
+            </a>
+            
         </div>
     </div>
 </body>

@@ -11,13 +11,15 @@ namespace EPR.Controllers
     public class AdminController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly IGenericRepository<Sell> _sellRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<Inventory> _invrepository;
         private readonly IGenericRepository<Employee> _emprepository;
 
-        public AdminController(IMapper mapper,IUnitOfWork unitOfWork,IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository)
+        public AdminController(IMapper mapper,IGenericRepository<Sell> sellRepository,IUnitOfWork unitOfWork,IGenericRepository<Inventory> Invrepository,IGenericRepository<Employee> Emprepository)
         {
             _mapper = mapper;
+            _sellRepository = sellRepository;
             _unitOfWork = unitOfWork;
             _invrepository = Invrepository;
             _emprepository = Emprepository;
@@ -175,5 +177,24 @@ namespace EPR.Controllers
             return View(model);
         }
         #endregion
+
+        #region Sells
+        [HttpGet]
+        public async Task<IActionResult> GetAllSells()
+        {
+            var Sells = await _sellRepository.GetAllWithSpecAsync(new SellSpec());
+            var MappedSells = _mapper.Map<IEnumerable<Sell>, IEnumerable<SellViewModel>>(Sells);
+            return View(MappedSells);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id) 
+        {
+            var Sells = await _sellRepository.GetByIdWithSpecAsync(new SellSpec(id));
+            var MappedSells = _mapper.Map<IEnumerable<SellItem>, IEnumerable<SellitemViewModel>>(Sells.sellItems);
+            return View(MappedSells);
+        }
+        #endregion
+
+
     }
 }
