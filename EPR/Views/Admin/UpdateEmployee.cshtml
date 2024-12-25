@@ -57,16 +57,16 @@
             text-decoration: none;
         }
 
-                .form-group input[type="submit"] {
-                    background-color: #007b7f;
-                    color: white;
-                    border: none;
-                    cursor: pointer;
-                }
+        .form-group input[type="submit"] {
+            background-color: #007b7f;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
 
-                    .form-group input[type="submit"]:hover {
-                        background-color: #005f5f;
-                    }
+            .form-group input[type="submit"]:hover {
+                background-color: #005f5f;
+            }
 
         .back-button {
             background-color: #007b7f;
@@ -83,7 +83,8 @@
             .back-button:hover {
                 background-color: #005f5f;
             }
-          .add-button {
+
+        .add-button {
             background-color: #007b7f;
             color: white;
             padding: 10px 20px;
@@ -92,6 +93,7 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
+
             .add-button:hover {
                 background-color: #005f5f;
             }
@@ -99,8 +101,8 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>اضافة موظف</h2>
-        <form method="post" asp-action="CreateEmployee">
+        <h2>تعديل موظف</h2>
+        <form method="post" asp-action="UpdateEmployee">
             <div class="form-group">
                 <label for="UserName">UserName</label>
                 <input type="text" id="UserName" name="UserName" required />
@@ -118,7 +120,7 @@
                 <input type="tel" id="PhoneNumber" name="PhoneNumber" required />
             </div>
             <div class="form-group">
-                <input type="submit"style="font-size:19px" value="تاكيد" />
+                <input type="submit" style="font-size:19px" value="تعديل" />
             </div>
         </form>
         <center><a asp-action="GetAllEmployees"><button class="add-button">رجوع</button></a></center>

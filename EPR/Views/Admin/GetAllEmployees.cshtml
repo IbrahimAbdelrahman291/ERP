@@ -72,7 +72,8 @@
                 <th>Password</th>
                 <th>Name</th>
                 <th>PhoneNumber</th>
-                <th>Setting</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -84,6 +85,7 @@
                     <td>@employee.Name</td>
                     <td>@employee.PhoneNumber</td>
                     <td><a asp-action="UpdateEmployee" asp-route-id="@employee.Id">تعديل</a></td>
+                    <td><a asp-action="DeleteEmployee" asp-route-id="@employee.Id">حذف</a></td>
                 </tr>
             }
         </tbody>

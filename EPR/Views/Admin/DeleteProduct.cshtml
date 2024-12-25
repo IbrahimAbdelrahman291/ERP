@@ -1,4 +1,4 @@
-﻿@model EmployeeViewModel
+﻿@model ProductViewModel
 
 @{
     Layout = null;
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CreateEmployee</title>
+    <title>AddProduct</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,12 +51,6 @@
                 border-radius: 4px;
             }
 
-        a {
-            color: #007b7f;
-            -webkit-text-decoration: none;
-            text-decoration: none;
-        }
-
                 .form-group input[type="submit"] {
                     background-color: #007b7f;
                     color: white;
@@ -83,45 +77,25 @@
             .back-button:hover {
                 background-color: #005f5f;
             }
-          .add-button {
-            background-color: #007b7f;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-            .add-button:hover {
-                background-color: #005f5f;
-            }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>اضافة موظف</h2>
-        <form method="post" asp-action="CreateEmployee">
+        <h2>حذف منتج</h2>
+        <form method="post" asp-action="DeleteProduct">
             <div class="form-group">
-                <label for="UserName">UserName</label>
-                <input type="text" id="UserName" name="UserName" required />
+                <label asp-for="Name"></label>
+                <input type="text" id="Name" asp-for="Name" required />
             </div>
             <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="password" id="Password" name="Password" required />
+                <label asp-for="Price">Price</label>
+                <input type="number" step="0.01" id="Price" asp-for="Price" required />
             </div>
             <div class="form-group">
-                <label for="Name">Name</label>
-                <input type="text" id="Name" name="Name" required />
-            </div>
-            <div class="form-group">
-                <label for="PhoneNumber">PhoneNumber</label>
-                <input type="tel" id="PhoneNumber" name="PhoneNumber" required />
-            </div>
-            <div class="form-group">
-                <input type="submit"style="font-size:19px" value="تاكيد" />
+                <input type="submit" value="حذف" />
             </div>
         </form>
-        <center><a asp-action="GetAllEmployees"><button class="add-button">رجوع</button></a></center>
+        <center><a asp-action="GetAllProducts"><button class="back-button">رجوع</button></a></center>
     </div>
 </body>
 </html>

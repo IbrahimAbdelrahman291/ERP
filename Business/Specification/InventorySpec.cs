@@ -9,7 +9,7 @@ namespace Business.Specification
 {
     public class InventorySpec : BaseSpecification<Inventory>
     {
-        public InventorySpec() : base(P => P.Product.Amount != 0)
+        public InventorySpec() : base()
         {
             Includes.Add(I=>I.Product);
         }

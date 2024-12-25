@@ -14,7 +14,6 @@ namespace DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.Property(P => P.Name).IsRequired();
-            builder.Property(P => P.Amount).IsRequired();
             builder.Property(P => P.Price).IsRequired().HasColumnType("decimal(18,2)");
            }
     }

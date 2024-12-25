@@ -11,9 +11,8 @@ namespace EPR.Helper
             CreateMap<EmployeeViewModel,Employee>().ReverseMap();
             CreateMap<Product,ProductViewModel>().ReverseMap();
             CreateMap<Inventory, InventoryViewModel>()
-                        .ForMember(s=>s.ProductName,option=>option.MapFrom(d=>d.Product.Name))
-                        .ForMember(s=>s.ProductPrice,option=>option.MapFrom(d=>d.Product.Price))
-                        .ForMember(s=>s.ProductAmount,option=>option.MapFrom(d=>d.Product.Amount));
+                        .ForMember(s => s.ProductName, option => option.MapFrom(d => d.Product.Name))
+                        .ForMember(s => s.ProductPrice, option => option.MapFrom(d => d.Product.Price));
        
             CreateMap<Sell, SellViewModel>()
                             .ForMember(s => s.sellItems, option => option.MapFrom(d => d.sellItems)).ReverseMap();

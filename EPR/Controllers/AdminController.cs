@@ -4,6 +4,7 @@ using Business.Specification;
 using DataAccess.Models;
 using EPR.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace EPR.Controllers
 {
@@ -81,12 +82,32 @@ namespace EPR.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var Employee = await _emprepository.GetByIdWithSpecAsync(new EmployeeSpec(id));
+            var MappedEmployee = _mapper.Map<Employee, EmployeeViewModel>(Employee);
+            return View(MappedEmployee);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteEmployee(EmployeeViewModel model) 
+        {
+            if (!ModelState.IsValid) return View(model);
+            var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(model);
+            _emprepository.Delete(MappedEmployee);
+            var Result = await _emprepository.CompleteAsync();
+            if (Result>0)
+            {
+                return RedirectToAction(nameof(GetAllEmployees));
+            }
+            return View(model);
+        }
         #endregion
 
         #region Inventory
 
         public async Task<IActionResult> GetAllProducts() 
-        {  // ICON OF iNVENTORY
+        { 
             var ProductsInInventory =await _invrepository.GetAllWithSpecAsync(new InventorySpec());
             var mappedInventory = _mapper.Map<IEnumerable<Inventory>,IEnumerable<InventoryViewModel>>(ProductsInInventory);
             return View(mappedInventory);
@@ -94,8 +115,14 @@ namespace EPR.Controllers
         [HttpGet]
         public IActionResult AddProduct() 
         {
-            //search
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(string ProductName)
+        {
+            var Product = await _unitOfWork.ProductRepository.GetByNameAsync(ProductName);
+            var MappedProduct = _mapper.Map<Product, ProductViewModel>(Product);
+            return View(MappedProduct);
         }
 
         [HttpPost]
@@ -105,7 +132,6 @@ namespace EPR.Controllers
             var Product = await _unitOfWork.ProductRepository.GetByNameAsync(model.Name);
             if (Product is not null)
             {
-                Product.Amount = model.Amount;
                 _unitOfWork.ProductRepository.Update(Product);
                 int Result = await _unitOfWork.ProductRepository.CompleteAsync();
                 if (Result > 0) RedirectToAction("GetAllProducts");
@@ -128,9 +154,26 @@ namespace EPR.Controllers
             }
             return View(model);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(string name) 
+        {
+            var Product = await _unitOfWork.ProductRepository.GetByNameAsync(name);
+            var MappedProduct = _mapper.Map<Product , ProductViewModel>(Product);
+            return View(MappedProduct);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(ProductViewModel model) 
+        {
+            if (!ModelState.IsValid) return View(model);
+            var MappedProduct = _mapper.Map<ProductViewModel, Product>(model);
+            _unitOfWork.ProductRepository.Delete(MappedProduct);
+            int Result = await _unitOfWork.ProductRepository.CompleteAsync();
+            if (Result > 0)
+            {
+                return RedirectToAction(nameof(GetAllProducts));
+            }
+            return View(model);
+        }
         #endregion
-
-        
     }
 }
