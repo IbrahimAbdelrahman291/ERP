@@ -43,8 +43,6 @@ namespace EPR.Controllers
             var Employee = await _unitOfWork.EmployeeRepository.GetByIdWithSpecAsync(new EmployeeSpec(EmployeeId.Value));
             mappedSell.Employee = Employee;
             mappedSell.EmployeeId = Employee.Id;
-            mappedSell.Bransh =Employee.Bransh;
-            mappedSell.BranshId =Employee.BranshId;
             await _sellRepository.AddAsync(mappedSell);
             int Result =await _sellRepository.CompleteAsync();
             if(Result>0) return RedirectToAction("Index");

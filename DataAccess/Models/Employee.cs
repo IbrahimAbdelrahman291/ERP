@@ -17,8 +17,6 @@ namespace DataAccess.Models
         public string PhoneNumber { get; set; }
         public int AdminId { get; set; }
         public Admin Admin { get; set; }
-        public int BranshId { get; set; }
-        public Bransh Bransh { get; set; }
         public ICollection<Sell> Sells { get; set; } = new HashSet<Sell>();
 
     }

@@ -11,6 +11,5 @@ namespace DataAccess.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public DateTime StoreDate { get; set; }
-        public ICollection<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
     }
 }

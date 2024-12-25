@@ -21,10 +21,7 @@ namespace DataAccess.Configurations
                    .WithMany(a => a.Employees)
                    .HasForeignKey(e => e.AdminId)
                    .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(e => e.Bransh)
-                   .WithMany(b => b.Employees)
-                   .HasForeignKey(e => e.BranshId)
-                   .OnDelete(DeleteBehavior.Restrict);
+         
         }
     }
 }

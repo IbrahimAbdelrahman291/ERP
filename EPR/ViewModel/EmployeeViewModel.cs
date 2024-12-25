@@ -11,7 +11,6 @@ namespace EPR.ViewModel
         public string Name { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
-        public string BranchName { get; set; }
  
     }
 }
