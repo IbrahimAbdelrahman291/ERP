@@ -4,6 +4,7 @@ namespace EPR.ViewModel
 {
     public class EmployeeViewModel
     {
+
         public string UserName { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }

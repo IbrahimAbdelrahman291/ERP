@@ -1,0 +1,131 @@
+﻿@model EmployeeViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreateEmployee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+            .form-container h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333333;
+                text-align: center;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+        a {
+            color: #007b7f;
+            -webkit-text-decoration: none;
+            text-decoration: none;
+        }
+
+                .form-group input[type="submit"] {
+                    background-color: #007b7f;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                    .form-group input[type="submit"]:hover {
+                        background-color: #005f5f;
+                    }
+
+        .back-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .back-button:hover {
+                background-color: #005f5f;
+            }
+          .add-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+            .add-button:hover {
+                background-color: #005f5f;
+            }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>اضافة موظف </h2>
+        <form method="post" asp-action="CreateEmployee">
+            <div class="form-group">
+                <label for="UserName">UserName</label>
+                <input type="text" id="UserName" name="UserName" required />
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" name="Password" required />
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" id="Name" name="Name" required />
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">PhoneNumber</label>
+                <input type="tel" id="PhoneNumber" name="PhoneNumber" required />
+            </div>
+            <div class="form-group">
+                <label for="BranchName">BranchName</label>
+                <input type="text" id="BranchName" name="BranchName" required />
+            </div>
+            <div class="form-group">
+                <input type="submit"style="font-size:19px" value="تاكيد" />
+            </div>
+        </form>
+        <center><a asp-action="GetAllEmployees"><button class="add-button">رجوع</button></a></center>
+    </div>
+</body>
+</html>
