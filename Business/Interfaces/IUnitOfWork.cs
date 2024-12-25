@@ -10,7 +10,6 @@ namespace Business.Interfaces
     public interface IUnitOfWork
     {
         public IProductRepository ProductRepository { get; set; }
-        public IBranchRepository BranchRepository { get; set; }
         public IAdminRepository AdminRepository { get; set; }
         public IEmployeeRepository EmployeeRepository { get; set; }
     }

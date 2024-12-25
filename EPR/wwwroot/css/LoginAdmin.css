@@ -4,7 +4,10 @@
     margin: 0;
     height: 100vh;
 }
-
+a {
+    -webkit-appearance: none;
+    text-decoration: none;
+}
 .login-container {
     background-color: white;
     padding: 30px;

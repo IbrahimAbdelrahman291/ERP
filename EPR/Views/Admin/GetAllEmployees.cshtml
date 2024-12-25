@@ -1,0 +1,92 @@
+﻿@model IEnumerable<EmployeeViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetAllEmployees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+        a{
+            color: #007b7f ;
+            -webkit-text-decoration: none;
+            text-decoration: none;
+        }
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+            .employee-table th, .employee-table td {
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .employee-table th {
+                background-color: #007b7f;
+                color: white;
+            }
+
+            .employee-table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .employee-table tr:hover {
+                background-color: #ddd;
+            }
+
+        .add-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+            .add-button:hover {
+                background-color: #005f5f;
+            }
+    </style>
+</head>
+<body>
+    <h1>Employee List</h1>
+    <a asp-action="CreateEmployee"><button class="add-button" >اضافة موظف </button></a>
+    <a asp-action="Index"> <button class="add-button">رجوع</button></a>
+    <table class="employee-table">
+        <thead>
+            <tr>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Name</th>
+                <th>PhoneNumber</th>
+                <th>Setting</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.UserName</td>
+                    <td>********</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.PhoneNumber</td>
+                    <td><a asp-action="UpdateEmployee" asp-route-id="@employee.Id">تعديل</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

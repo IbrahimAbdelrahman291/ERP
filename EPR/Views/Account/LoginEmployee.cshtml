@@ -1,4 +1,4 @@
-﻿@using EPR.ViewModel
+﻿
 @model LoginViewModel
 @{
     ViewData["Title"] = "Login";
@@ -13,7 +13,6 @@
 
 </head>
 <body>
-
     <div class="login-container">
         <h2>تسجيل الدخول</h2>
         <form asp-action="LoginEmployee" method="post">
@@ -21,7 +20,7 @@
             <input type="password" class="input-field" placeholder="كلمة المرور" required><br>
             <button type="submit" class="login-btn">تسجيل الدخول</button>
         </form>
+        <a asp-action="Index" style="color:#007b7f">رجوع</a>
     </div>
-
 </body>
 </html>

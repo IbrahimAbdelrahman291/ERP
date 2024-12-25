@@ -39,7 +39,7 @@ namespace EPR
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Index}/{id?}");
+                pattern: "{controller=Admin}/{action=Index}");
 
             app.Run();
         }

@@ -4,13 +4,13 @@ namespace EPR.ViewModel
 {
     public class EmployeeViewModel
     {
+        public int Id { get; set; }
         public string UserName { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Name { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
-        public string BranchName { get; set; }
  
     }
 }

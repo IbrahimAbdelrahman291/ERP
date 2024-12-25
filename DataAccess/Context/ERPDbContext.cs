@@ -22,15 +22,11 @@ namespace DataAccess.Context
         }
         
         public DbSet<Admin> admins { get; set; }
-        public DbSet<Bransh> branshes { get; set; }
         public DbSet<Employee> employees { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Sell> Sells { get; set; }
         public DbSet<SellItem> SellItems { get; set; }
-        public DbSet<Stock> Stock { get; set; }
-        public DbSet<Transaction> transactions { get; set; }
-        public DbSet<TransactionItems> TransactionItems { get; set; }
 
     }
 }

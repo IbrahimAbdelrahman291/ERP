@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            height: 100vh;
+            display: table;
+            width: 100%;
+        }
+
+        .dashboard {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px 40px;
+            margin-top: 20%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .dashboard h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333333;
+            }
+
+        .icon-container {
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+
+        .icon {
+            background-color: #007b7f;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 120px;
+            height: 140px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .icon:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .icon img {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+
+            .icon p {
+                color: #ffffff;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 0;
+            }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h2>Welcome to the Dashboard</h2>
+        <div class="icon-container">
+ 
+            <a asp-action="GetAllEmployees">
+            <div class="icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Employees">
+                <p>الموظفون</p>
+            </div>
+            </a>
+            <a asp-action="GetAllProducts">
+            <div class="icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/2910/2910793.png" alt="Inventory">
+                <p>قائمة المطعم</p>
+            </div>
+            </a>
+            <div class="icon" onclick="alert('Sales section coming soon!')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Sales">
+                <p>المبيعات</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
