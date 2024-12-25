@@ -72,6 +72,7 @@
                 <th>Password</th>
                 <th>Name</th>
                 <th>PhoneNumber</th>
+                <th>Setting</th>
             </tr>
         </thead>
         <tbody>
@@ -82,6 +83,7 @@
                     <td>********</td>
                     <td>@employee.Name</td>
                     <td>@employee.PhoneNumber</td>
+                    <td><a asp-action="UpdateEmployee" asp-route-id="@employee.Id">تعديل</a></td>
                 </tr>
             }
         </tbody>

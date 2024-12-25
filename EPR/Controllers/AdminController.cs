@@ -57,7 +57,30 @@ namespace EPR.Controllers
             var MappedEmployees = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
             return View(MappedEmployees);
         }
+        [HttpGet]
+        public async Task<IActionResult> UpdateEmployee(int id)
+        {
+            var Employee = await _emprepository.GetByIdWithSpecAsync(new EmployeeSpec(id));
+            var MappedEmployee = _mapper.Map<Employee, EmployeeViewModel>(Employee);
+            return View(MappedEmployee);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmployee(EmployeeViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var Employee = await _emprepository.GetByIdWithSpecAsync(new EmployeeSpec(model.Id));
+            Employee.Name = model.Name;
+            Employee.UserName = model.UserName;
+            Employee.Password = model.Password;
 
+            _emprepository.Update(Employee);
+            int Result = await _emprepository.CompleteAsync();
+            if (Result > 0)
+            {
+                return RedirectToAction("GetAllEmployees");
+            }
+            return View(model);
+        }
         #endregion
 
         #region Inventory
