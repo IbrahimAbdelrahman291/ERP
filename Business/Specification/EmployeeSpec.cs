@@ -13,10 +13,11 @@ namespace Business.Specification
         {
 
         }
-        public EmployeeSpec(int id) : base(e=>e.Id==id)
+        public EmployeeSpec(int id) : base(e => e.Id == id)
         {
-            Includes.Add(e => e.Sells.SelectMany(S=>S.sellItems).OrderByDescending(s=>s.Id));
+            Includes.Add(e => e.Sells);
         }
-
     }
+
 }
+

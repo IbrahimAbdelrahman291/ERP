@@ -1,0 +1,153 @@
+﻿@model SellViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Edit Sell - @ViewData["Title"]</title>
+    <link href="~/css/selling.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <h2>Edit Sell</h2>
+
+        <form asp-action="EditSell" method="post" class="form-horizontal">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group row">
+                <label asp-for="DateTime" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="DateTime" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Bill" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Bill" id="TotalBill" class="form-control" readonly />
+                </div>
+            </div>
+           
+            <input type="hidden" asp-for="Status" />
+
+            <div class="form-group">
+                <label>Sell Items</label>
+
+                <div id="sell-items-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Amount</th>
+                                <th>Billing</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.sellItems.Count(); i++)
+                            {
+                                <tr class="sell-item" data-index="@i">
+                                    <input type="hidden" name="sellItems[@i].ProductName" value="@Model.sellItems.ElementAt(i).ProductName" />
+                                    <input type="hidden" name="sellItems[@i].Billing" class="hidden-billing" value="@Model.sellItems.ElementAt(i).Billing" />
+                                    <input type="hidden" name="sellItems[@i].Amount" class="hidden-amount" value="@Model.sellItems.ElementAt(i).Amount" />
+
+                                    <td>
+                                        <input value="@Model.sellItems.ElementAt(i).ProductName" class="form-control" readonly />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control amount-field"
+                                               data-index="@i"
+                                               value="@Model.sellItems.ElementAt(i).Amount"
+                                               min="1" />
+                                    </td>
+                                    <td>
+                                        <input value="@Model.sellItems.ElementAt(i).Billing" class="form-control billing-field" readonly />
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger remove-row" data-index="@i">Remove</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-20" style="margin-top:20px; margin-bottom:20px">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+
+        <div>
+            <a asp-action="GetAllSells" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('sell-items-container');
+            const totalBillInput = document.getElementById('TotalBill');
+
+            // Update billing and total bill when amount changes
+            container.addEventListener('input', (e) => {
+                if (e.target.classList.contains('amount-field')) {
+                    const index = e.target.dataset.index;
+                    const amount = parseFloat(e.target.value);
+
+                    // Ensure minimum amount is 1 and avoid NaN
+                    if (isNaN(amount) || amount < 1) {
+                        e.target.value = 1;  // Reset to 1 if invalid input
+                        return; // Skip further processing if invalid
+                    }
+
+                    const hiddenAmount = container.querySelector(`.sell-item[data-index="${index}"] .hidden-amount`);
+                    const hiddenBilling = container.querySelector(`.sell-item[data-index="${index}"] .hidden-billing`);
+                    const billingField = container.querySelector(`.sell-item[data-index="${index}"] .billing-field`);
+
+                    // Ensure unit price doesn't result in NaN
+                    const unitPrice = parseFloat(hiddenBilling.value) / parseFloat(hiddenAmount.value);
+                    const newBilling = (unitPrice * amount).toFixed(2);
+
+                    // Update hidden values and the visible billing field
+                    hiddenAmount.value = amount;
+                    hiddenBilling.value = newBilling;
+                    billingField.value = newBilling;
+
+                    // Update the total bill after recalculation
+                    updateTotalBill();
+                }
+            });
+
+            // Remove item functionality
+            container.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-row')) {
+                    const index = e.target.dataset.index;
+                    const item = container.querySelector(`.sell-item[data-index="${index}"]`);
+
+                    if (item) {
+                        item.remove();  // Removes the row
+                        updateTotalBill();  // Recalculate the total bill
+                    }
+                }
+            });
+
+            // Update total bill: sum all item bills
+            function updateTotalBill() {
+                let total = 0;
+
+                // Sum the billing values for each item
+                container.querySelectorAll('.hidden-billing').forEach(input => {
+                    total += parseFloat(input.value) || 0; // Avoid NaN values
+                });
+
+                // Update the TotalBill field with the calculated total
+                totalBillInput.value = total.toFixed(2);  // Format to 2 decimal places
+            }
+        });
+    </script>
+</body>
+</html>

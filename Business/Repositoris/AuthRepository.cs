@@ -29,10 +29,10 @@ namespace Business.Repositoris
 
         public async Task<bool> ValidateEmployee(string Username, string password)
         {
-            var Patient = await _unitOfWork.AdminRepository.GetByUserName(Username);
-            if (Patient == null) return false;
+            var employee = await _unitOfWork.EmployeeRepository.GetByUserName(Username);
+            if (employee == null) return false;
 
-            return Patient.Password == password;
+            return employee.Password == password;
         }
     }
 }

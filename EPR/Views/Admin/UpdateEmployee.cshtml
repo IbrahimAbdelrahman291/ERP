@@ -103,21 +103,22 @@
     <div class="form-container">
         <h2>تعديل موظف</h2>
         <form method="post" asp-action="UpdateEmployee">
+            <input type="hidden" id="id" name="id" value="@Model.Id"  />
             <div class="form-group">
                 <label for="UserName">UserName</label>
-                <input type="text" id="UserName" name="UserName" required />
+                <input type="text" id="UserName" name="UserName" value="@Model.UserName" required />
             </div>
             <div class="form-group">
                 <label for="Password">Password</label>
-                <input type="password" id="Password" name="Password" required />
+                <input type="password" id="Password" name="Password" value="@Model.Password" required />
             </div>
             <div class="form-group">
                 <label for="Name">Name</label>
-                <input type="text" id="Name" name="Name" required />
+                <input type="text" id="Name" name="Name" value="@Model.Name" required />
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">PhoneNumber</label>
-                <input type="tel" id="PhoneNumber" name="PhoneNumber" required />
+                <input type="tel" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
             </div>
             <div class="form-group">
                 <input type="submit" style="font-size:19px" value="تعديل" />

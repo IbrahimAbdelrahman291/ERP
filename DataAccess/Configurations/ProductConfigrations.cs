@@ -15,6 +15,7 @@ namespace DataAccess.Configurations
         {
             builder.Property(P => P.Name).IsRequired();
             builder.Property(P => P.Price).IsRequired().HasColumnType("decimal(18,2)");
-           }
+            
+        }
     }
 }

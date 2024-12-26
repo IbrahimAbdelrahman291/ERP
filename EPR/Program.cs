@@ -1,6 +1,7 @@
 using Business.Interfaces;
 using Business.Repositoris;
 using DataAccess.Context;
+using DataAccess.Data;
 using EPR.Helper;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ namespace EPR
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,30 @@ namespace EPR
             builder.Services.AddScoped<IAuthRepository , AuthRepository>();
             builder.Services.AddDbContext<ERPDbContext>(Options =>
             { Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
-            var app = builder.Build();
+            // Add session services
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
+            var app = builder.Build();
+            using var Scope = app.Services.CreateScope();
+            var Services = Scope.ServiceProvider;
+            var LoggerFactory = Scope.ServiceProvider.GetService<ILoggerFactory>();
+            try
+            {
+                var dbContext = Services.GetRequiredService<ERPDbContext>();
+                await DataSeed.SeedAsync(dbContext);
+                await dbContext.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                var logger = LoggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "Error While Applying Migrations");
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -36,10 +59,11 @@ namespace EPR
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Index}");
+                pattern: "{controller=Account}/{action=Index}/{id?}");
 
             app.Run();
         }

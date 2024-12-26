@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SellViewModel>
+﻿@model IEnumerable<SellitemViewModel>
 
 @{
     Layout = null;
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GetAllProducts</title>
+    <title>Sell Item Details</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,25 +60,23 @@
     </style>
 </head>
 <body>
-    <h1>Sells List</h1>
+    <h1>Sell Items</h1>
     <a asp-action="Index"><button class="add-button">رجوع</button></a>
     <table class="product-table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Sell Date</th>
-                <th>Billing Date</th>
-                <th>Details</th>
+                <th>Product Name</th>
+                <th>Amount</th>
+                <th>Billing</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var sell in Model)
+            @foreach (var item in Model)
             {
                 <tr>
-                    <td>@sell.Id</td>
-                    <td>@sell.DateTime</td>
-                    <td>@sell.Bill</td>
-                    <td><a asp-action="Details" asp-route-id="@sell.Id">تفاصيل</a></td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Amount</td>
+                    <td>@item.Billing</td>
                 </tr>
             }
         </tbody>
