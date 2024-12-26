@@ -75,6 +75,7 @@ namespace EPR.Controllers
             Employee.Name = model.Name;
             Employee.UserName = model.UserName;
             Employee.Password = model.Password;
+            Employee.PhoneNumber = model.PhoneNumber;
 
             _emprepository.Update(Employee);
             int Result = await _emprepository.CompleteAsync();
@@ -152,7 +153,7 @@ namespace EPR.Controllers
                 };
                 await _invrepository.AddAsync(inventory);
                 int result2= await _invrepository.CompleteAsync();
-                if (result2 > 0) RedirectToAction("GetAllProducts");
+                if (result2 > 0) return RedirectToAction("GetAllProducts");
             }
             return View(model);
         }
@@ -167,8 +168,8 @@ namespace EPR.Controllers
         public async Task<IActionResult> DeleteProduct(ProductViewModel model) 
         {
             if (!ModelState.IsValid) return View(model);
-            var MappedProduct = _mapper.Map<ProductViewModel, Product>(model);
-            _unitOfWork.ProductRepository.Delete(MappedProduct);
+            var Product = await _unitOfWork.ProductRepository.GetByNameAsync(model.Name);
+            _unitOfWork.ProductRepository.Delete(Product);
             int Result = await _unitOfWork.ProductRepository.CompleteAsync();
             if (Result > 0)
             {
@@ -182,19 +183,30 @@ namespace EPR.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllSells()
         {
-            var Sells = await _sellRepository.GetAllWithSpecAsync(new SellSpec());
+            var Sells = await _sellRepository.GetAllWithSpecAsync(new SellSpec("Sold"));
             var MappedSells = _mapper.Map<IEnumerable<Sell>, IEnumerable<SellViewModel>>(Sells);
             return View(MappedSells);
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id) 
         {
-            var Sells = await _sellRepository.GetByIdWithSpecAsync(new SellSpec(id));
-            var MappedSells = _mapper.Map<IEnumerable<SellItem>, IEnumerable<SellitemViewModel>>(Sells.sellItems);
-            return View(MappedSells);
+            var sell = await _sellRepository.GetByIdWithSpecAsync(new SellSpec(id));
+            if (sell == null)
+            {
+                return NotFound();
+            }
+            var model = _mapper.Map<Sell, SellViewModel>(sell);
+            var sellitem = _mapper.Map<IEnumerable<SellItem>, IEnumerable<SellitemViewModel>>(sell.sellItems);
+            model.sellItems = sellitem;
+            return View(sellitem);
         }
         #endregion
-
+        public async Task<IActionResult> ReturnedOrders()
+        {
+            var Sell = await _sellRepository.GetAllWithSpecAsync(new SellSpec("Returned"));
+            var MappedSell = _mapper.Map<IEnumerable<Sell>, IEnumerable<SellViewModel>>(Sell);
+            return View(MappedSell);
+        }
 
     }
 }

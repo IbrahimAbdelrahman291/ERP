@@ -13,7 +13,19 @@ namespace DataAccess.Data
     {
         public static async Task SeedAsync(ERPDbContext dbContext) 
         {
-            if (!dbContext.products.Any()) 
+            
+            if (!dbContext.admins.Any())
+            {
+                var Admin = new Admin()
+                {
+                    UserName = "Admin01",
+                    Password = "P@ssAdmin"
+                };
+                await dbContext.Set<Admin>().AddAsync(Admin);
+                await dbContext.SaveChangesAsync();
+
+            }
+            if (!dbContext.products.Any())
             {
                 var ProductsData = File.ReadAllText("../DataAccess/Data/Menu.json");
                 var products = JsonSerializer.Deserialize<List<Product>>(ProductsData);
@@ -27,14 +39,19 @@ namespace DataAccess.Data
                     await dbContext.SaveChangesAsync();
                 }
             }
-            if (!dbContext.admins.Any())
+            if (!dbContext.Inventory.Any())
             {
-                var Admin = new Admin()
+                var InventoryData = File.ReadAllText("../DataAccess/Data/Inventory.json");
+                var inventories = JsonSerializer.Deserialize<List<Inventory>>(InventoryData);
+                if (inventories?.Count > 0)
                 {
-                    UserName = "Admin01",
-                    Password = "P@ssAdmin"
-                };
-                await dbContext.Set<Admin>().AddAsync(Admin);
+                    foreach (var inventory in inventories)
+                    {
+                        await dbContext.Set<Inventory>().AddAsync(inventory);
+
+                    }
+                    await dbContext.SaveChangesAsync();
+                }
             }
             if (!dbContext.employees.Any())
             {
@@ -47,7 +64,9 @@ namespace DataAccess.Data
                     PhoneNumber = "01200860765"
                 };
                 await dbContext.Set<Employee>().AddAsync(employee);
+                await dbContext.SaveChangesAsync();
             }
+
         }
     }
 }

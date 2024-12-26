@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace Business.Specification
     {
         public SellSpec(int id) : base (S=>S.Id==id)
         {
-            Includes.Add(s=>s.sellItems);
+            ThenIncludes.Add(query => query.Include(e => e.sellItems).ThenInclude(s => s.Product));
         }
-        public SellSpec()
+        public SellSpec(string Status) : base(s=>s.Status == Status)
         {
-            
+            ThenIncludes.Add(query => query.Include(e => e.sellItems).ThenInclude(s => s.Product));
         }
     }
 }

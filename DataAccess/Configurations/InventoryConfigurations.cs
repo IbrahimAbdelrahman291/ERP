@@ -13,6 +13,7 @@ namespace DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
+           
         }
     }
 }

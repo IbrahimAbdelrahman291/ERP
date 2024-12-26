@@ -10,8 +10,9 @@ namespace DataAccess.Models
     {
         public DateTime DateTime { get; set; }
         public int EmployeeId { get; set; }
-        public ICollection<SellItem> sellItems { get; set; } = new HashSet<SellItem>();
+        public IEnumerable<SellItem> sellItems { get; set; } = new HashSet<SellItem>();
         public decimal Bill { get; set; }
+        public string Status { get; set; }
         public Employee Employee { get; set; }
         
     }

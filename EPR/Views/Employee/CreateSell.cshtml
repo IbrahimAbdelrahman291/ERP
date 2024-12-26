@@ -1,0 +1,265 @@
+﻿@model IEnumerable<InventoryViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="~/css/print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+        }
+
+        .inventory-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            position: relative;
+        }
+
+            .product-card h3 {
+                margin: 10px 0;
+                font-size: 18px;
+                color: #333333;
+            }
+
+            .product-card p {
+                margin: 5px 0;
+                color: #666666;
+            }
+
+            .product-card .count {
+                font-size: 16px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+
+            .product-card button {
+                background-color: #007b7f;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+                .product-card button:hover {
+                    background-color: #005f5f;
+                }
+
+        .order-container {
+            width: 300px;
+            height: 30%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+        }
+
+            .order-container h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333333;
+                text-align: center;
+            }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+            .order-item span {
+                font-size: 16px;
+            }
+
+        .submit-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+            .submit-button:hover {
+                background-color: #005f5f;
+            }
+
+        .total-bill {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .back-button:hover {
+                background-color: #005f5f;
+            }
+    </style>
+    <script>
+        let order = [];
+
+        function incrementCount(productId, productName, productPrice) {
+            var countElement = document.getElementById('count-' + productId);
+            var count = parseInt(countElement.innerText);
+            countElement.innerText = count + 1;
+            updateOrder(productId, productName, count + 1, productPrice);
+        }
+
+        function decrementCount(productId, productName, productPrice) {
+            var countElement = document.getElementById('count-' + productId);
+            var count = parseInt(countElement.innerText);
+            if (count > 0) {
+                countElement.innerText = count - 1;
+                updateOrder(productId, productName, count - 1, productPrice);
+            }
+        }
+
+        function updateOrder(productId, productName, count, productPrice) {
+            const index = order.findIndex(item => item.productId === productId);
+            if (count > 0) {
+                if (index > -1) {
+                    order[index].count = count;
+                    order[index].total = count * productPrice;
+                } else {
+                    order.push({ productId, productName, count, price: productPrice, total: count * productPrice });
+                }
+            } else {
+                if (index > -1) {
+                    order.splice(index, 1);
+                }
+            }
+            renderOrder();
+        }
+
+        function renderOrder() {
+            var orderContainer = document.getElementById('order-container');
+            orderContainer.innerHTML = '';
+            var totalBill = 0;
+            order.forEach(item => {
+                var orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = '<span>' + item.productName + '</span><span>' + item.count + ' x ' + item.price.toFixed(2) + ' = ' + item.total.toFixed(2) + '</span>';
+                orderContainer.appendChild(orderItem);
+                totalBill += item.total;
+            });
+            var totalBillElement = document.getElementById('total-bill');
+            totalBillElement.innerText = 'Total Bill: ' + totalBill.toFixed(2);
+        }
+
+        function submitOrder() {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/Employee/CreateSell';
+
+            order.forEach((item, index) => {
+                const productNameInput = document.createElement('input');
+                productNameInput.type = 'hidden';
+                productNameInput.name = `sellItems[${index}].ProductName`;
+                productNameInput.value = item.productName;
+
+                const amountInput = document.createElement('input');
+                amountInput.type = 'hidden';
+                amountInput.name = `sellItems[${index}].Amount`;
+                amountInput.value = item.count;
+
+                const billingInput = document.createElement('input');
+                billingInput.type = 'hidden';
+                billingInput.name = `sellItems[${index}].Billing`;
+                billingInput.value = item.total.toFixed(2);
+
+                form.appendChild(productNameInput);
+                form.appendChild(amountInput);
+                form.appendChild(billingInput);
+            });
+
+            const billInput = document.createElement('input');
+            billInput.type = 'hidden';
+            billInput.name = 'Bill';
+            billInput.value = order.reduce((sum, item) => sum + item.total, 0).toFixed(2);
+        
+            const StatusInput = document.createElement('input');
+                    StatusInput.type = 'hidden';
+                    StatusInput.name = 'Status';
+                    StatusInput.value = "Sold";
+
+            form.appendChild(StatusInput);
+            form.appendChild(billInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+        function printContent() {
+            var printArea = document.getElementById('order-mgnon');
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write(printArea.innerHTML);
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+</head>
+<body>
+    <div class="inventory-container">
+        @foreach (var product in Model)
+        {
+            <div class="product-card">
+                <h3>@product.ProductName</h3>
+                <p>Price: @product.ProductPrice</p>
+                <p>Store Date: @product.StoreDate.ToShortDateString()</p>
+                <div class="count" id="count-@product.ProductName">0</div>
+                <button onclick="incrementCount('@product.ProductName', '@product.ProductName', @product.ProductPrice)">+</button>
+                <button onclick="decrementCount('@product.ProductName', '@product.ProductName', @product.ProductPrice)">-</button>
+            </div>
+        }
+    </div>
+    <center><a asp-action="Index"><button class="back-button">رجوع</button></a></center>
+    <div class="order-container">
+        <div id="order-mgnon">
+        <h2>Order</h2>
+        <div id="order-container"></div>
+        <div class="total-bill" id="total-bill">Total Bill: 0.00</div>
+        </div>
+        <button class="submit-button" onclick="submitOrder()">Submit Order</button>
+        <button class="submit-button" onclick="printContent()">Print</button>
+    </div>
+</body>
+</html>

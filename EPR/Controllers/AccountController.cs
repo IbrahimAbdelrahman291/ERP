@@ -56,10 +56,10 @@ namespace EPR.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> LoginEmployee(LoginViewModel model)
-        {
+            {
             if (ModelState.IsValid)
             {
-                var result = await _authRepository.ValidateAdmin(model.UserName, model.Password);
+                var result = await _authRepository.ValidateEmployee(model.UserName, model.Password);
                 if (result)
                 {
                     var emp = await _unitOfWork.EmployeeRepository.GetByUserName(model.UserName);
@@ -75,5 +75,10 @@ namespace EPR.Controllers
         }
         #endregion
 
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Account");
+        }
     }
 }

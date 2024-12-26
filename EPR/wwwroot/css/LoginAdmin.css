@@ -21,6 +21,21 @@ a {
     transform: translate(-50%, -50%);
 }
 
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printableArea, #printableArea * {
+        visibility: visible;
+    }
+
+    #printableArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
 h2 {
     color: #007b7f;
 }

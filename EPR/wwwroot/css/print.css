@@ -1,0 +1,19 @@
+﻿/* print.css */
+body * {
+    visibility: hidden;
+}
+
+.order-container, .order-container * {
+    visibility: visible;
+}
+
+.order-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+}

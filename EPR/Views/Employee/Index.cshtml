@@ -31,13 +31,11 @@
 
         a {
             color: #007b7f;
-            -webkit-text-decoration: none;
             text-decoration: none;
         }
 
         .icon-container {
             display: grid;
-
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 30px;
             margin-top: 20px;
@@ -87,31 +85,26 @@
     <div class="dashboard">
         <h2>Welcome to the Dashboard</h2>
         <div class="icon-container">
- 
-            <a asp-action="GetAllEmployees">
-            <div class="icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Employees">
-                <p>الموظفون</p>
-            </div>
-            </a>
-            <a asp-action="GetAllProducts">
-            <div class="icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2910/2910793.png" alt="Inventory">
-                <p>قائمة المطعم</p>
-            </div>
-            </a>
-            <a asp-action="GetAllSells">
+
+            <a asp-action="CreateSell">
                 <div class="icon">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Sales">
-                    <p>المبيعات</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3069/3069271.png" alt="Selling">
+                    <p style="font-size:18px">بيع</p>
                 </div>
             </a>
             <a asp-action="ReturnedOrders">
                 <div class="icon">
                     <img src="https://cdn-icons-png.flaticon.com/512/458/458594.png" alt="Return">
-                    <p style="font-size:18px">الارجاعات</p>
+                    <p style="font-size:18px">ارجاع</p>
                 </div>
             </a>
+            <a asp-action="GetAllSells">
+                <div class="icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Edit Order">
+                    <p style="font-size:18px">تعديل على طلب</p>
+                </div>
+            </a>
+
         </div>
     </div>
 </body>

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<SellViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetAllSells</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .product-table th, .product-table td {
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .product-table th {
+                background-color: #007b7f;
+                color: white;
+            }
+
+            .product-table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .product-table tr:hover {
+                background-color: #ddd;
+            }
+
+        .add-button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+            .add-button:hover {
+                background-color: #005f5f;
+            }
+
+        .return-button, .print-button, .Edit-button{
+            background-color: #4caf50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .return-button:hover, .print-button:hover {
+                background-color: #45a049;
+            }
+
+        .return-button {
+            background-color: #ff4d4d;
+        }
+
+        .Edit-button {
+            background-color: #ff4d4d;
+        }
+
+            .Edit-button:hover {
+                background-color: #45a049;
+            }
+    </style>
+    <script>
+        function confirmReturn(id) {
+            // Confirm before redirecting
+            if (confirm('Are you sure you want to return this order?')) {
+                // Redirect to the ReturnOrder action with the selected id
+                window.location.href = '@Url.Action("ReturnOrder", "Employee")/' + id;
+            }
+        }
+
+        function printSell(id, date, bill) {
+            var printWindow = window.open('', '_blank', 'width=600,height=400');
+            printWindow.document.write('<h2>Sell Order Details</h2>');
+            printWindow.document.write('<p><strong>Order ID:</strong> ' + id + '</p>');
+            printWindow.document.write('<p><strong>Sell Date:</strong> ' + date + '</p>');
+            printWindow.document.write('<p><strong>Billing Date:</strong> ' + bill + '</p>');
+            printWindow.document.write('<button onclick="window.print();">Print</button>');
+
+            printWindow.document.close();
+        }
+    </script>
+</head>
+<body>
+    <h1>Sells List</h1>
+    <a asp-action="Index"><button class="add-button">رجوع</button></a>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sell Date</th>
+                <th>Billing Date</th>
+                <th>Edit</th>
+                <th>Return Order</th> <!-- New Column Header for Return Order -->
+                <th>Print</th> <!-- New Column Header for Print -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sell in Model)
+            {
+                <tr>
+                    <td>@sell.Id</td>
+                    <td>@sell.DateTime</td>
+                    <td>@sell.Bill</td>
+                    <td><a asp-action="EditSell" asp-route-id="@sell.Id"><button class="Edit-button">تعديل</button></a></td>
+                    <td>
+                        <button class="return-button" onclick="confirmReturn(@sell.Id)">إرجاع</button>
+                    </td> <!-- New Column for Return Order -->
+                    <td>
+                        <button class="print-button" onclick="printSell(@sell.Id, '@sell.DateTime', '@sell.Bill')">طباعة</button>
+                    </td> <!-- Print Button for Each Row -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
