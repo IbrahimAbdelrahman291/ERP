@@ -197,7 +197,7 @@ namespace EPR.Controllers
             }
             var model = _mapper.Map<Sell, SellViewModel>(sell);
             var sellitem = _mapper.Map<IEnumerable<SellItem>, IEnumerable<SellitemViewModel>>(sell.sellItems);
-            model.sellItems = sellitem;
+            model.sellItems = (ICollection<SellitemViewModel>) sellitem;
             return View(sellitem);
         }
         #endregion

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SellitemViewModel>
+﻿@model IEnumerable<SellViewModel>
 
 @{
     Layout = null;
@@ -60,23 +60,25 @@
     </style>
 </head>
 <body>
-    <h1>Product List</h1>
+    <h1>قائمه المبيعات</h1>
     <a asp-action="Index"><button class="add-button">رجوع</button></a>
     <table class="product-table">
         <thead>
             <tr>
-                <th>Product Name</th>
-                <th>Amount</th>
-                <th>Billing</th>
+                <th>Id</th>
+                <th>Sell Date</th>
+                <th>Billing Date</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var sell in Model)
             {
                 <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.Amount</td>
-                    <td>@item.Billing</td>
+                    <td>@sell.Id</td>
+                    <td>@sell.DateTime</td>
+                    <td>@sell.Bill</td>
+                    <td><a asp-action="Details" asp-route-id="@sell.Id">تفاصيل</a></td>
                 </tr>
             }
         </tbody>

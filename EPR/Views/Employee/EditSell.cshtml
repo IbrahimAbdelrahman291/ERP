@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="main-wrapper">
-        <h2>Edit Sell</h2>
+        <h2>تعديل طلب</h2>
 
         <form asp-action="EditSell" method="post" class="form-horizontal">
             <input type="hidden" asp-for="Id" />
@@ -66,7 +66,7 @@
                                         <input value="@Model.sellItems.ElementAt(i).Billing" class="form-control billing-field" readonly />
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger remove-row" data-index="@i">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-row" data-index="@i">حذف</button>
                                     </td>
                                 </tr>
                             }
@@ -77,13 +77,13 @@
 
             <div class="form-group row">
                 <div class="col-sm-10 offset-sm-20" style="margin-top:20px; margin-bottom:20px">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="حفظ" class="btn btn-primary" />
                 </div>
             </div>
         </form>
 
         <div>
-            <a asp-action="GetAllSells" class="btn btn-secondary">Back to List</a>
+            <a asp-action="GetAllSells" class="btn btn-secondary">رجوع</a>
         </div>
     </div>
 

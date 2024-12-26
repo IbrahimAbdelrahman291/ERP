@@ -7,17 +7,32 @@
 <!DOCTYPE html>
 <head>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .product-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+            .product-table th, .product-table td {
+                padding: 12px 15px;
                 border: 1px solid #ddd;
-            padding: 8px;
                 text-align: left;
             }
 
+            .product-table th {
+                background-color: #007b7f;
+                color: white;
+            }
+
+            .product-table tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
 
@@ -41,6 +56,9 @@
     </style>
 </head>
 <body>
+    <h1>تفاصيل الطلب</h1>
+    <a asp-action="GetAllSells"><button class="add-button">رجوع</button></a>
+    <table class="product-table">
         <thead>
             <tr>
                 <th>Product Name</th>
