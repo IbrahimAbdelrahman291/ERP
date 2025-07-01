@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ERPDbContext))]
-    [Migration("20241225035411_New Bussines")]
-    partial class NewBussines
+    [Migration("20250615182946_initial create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,9 +116,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("AdminId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -149,6 +146,10 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
